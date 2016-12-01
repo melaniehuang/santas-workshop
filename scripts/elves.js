@@ -14,11 +14,12 @@ window.onload = function() {
   
   var yLocation = Array(120, 442, 760);
   var spriteImages = Array("elf", "elf2","elf3","elf4","elf5");
+  var elfImage;
 
   function preload () {
     scene.load.atlasJSONHash("elf", "/assets/sprites/elf_walk.png", "/assets/sprites/elf_walk.json");
     scene.load.atlasJSONHash("elf2", "/assets/sprites/elf_test.png", "/assets/sprites/elf_walk.json");
-    scene.load.atlasJSONHash("elf3", "/assets/sprites/elf_test.png", "/assets/sprites/elf_walk.json");
+    scene.load.atlasJSONHash("elf3", "/assets/sprites/elf_walk.png", "/assets/sprites/elf_walk.json");
     scene.load.atlasJSONHash("elf4", "/assets/sprites/elf_test.png", "/assets/sprites/elf_walk.json");
     scene.load.atlasJSONHash("elf5", "/assets/sprites/elf_walk.png", "/assets/sprites/elf_walk.json");
 
@@ -27,6 +28,7 @@ window.onload = function() {
   }
 
   function create () {
+
     scene.stage.backgroundColor = 0x422B1D;
     scene.physics.setBoundsToWorld();
 
@@ -40,7 +42,7 @@ window.onload = function() {
     elves.enableBody = true;
     elves.physicsBodyType = Phaser.Physics.ARCADE;
     
-    for (var y = 0; y < 4; y++){
+    for (var y = 0; y < 10; y++){
       elf = elves.create(0, yLocation[Math.floor(Math.random()*yLocation.length)], spriteImages[Math.floor(Math.random()*spriteImages.length)]);
       elf.anchor.set(0.5,0.5);
       elf.animations.add("run");
@@ -51,10 +53,12 @@ window.onload = function() {
       elf.body.velocity.x = Math.floor((Math.random() * 100) + 50);
     }
   }
-  
+
   function elfOut(elf) {
     elf.reset(elf.x, 0);
     elf.reset(elf.y, yLocation[Math.floor(Math.random()*yLocation.length)]);
+    elf.key = spriteImages[Math.floor(Math.random()*spriteImages.length)];
+    elf.loadTexture(elf.key,0,false);
     elf.body.velocity.x = Math.floor((Math.random() * 100) + 50);
   }
 
