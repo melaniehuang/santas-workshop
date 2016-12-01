@@ -13,9 +13,14 @@ window.onload = function() {
   var layer;
   
   var yLocation = Array(120, 442, 760);
+  var spriteImage = Array("elf", "elf2","elf3","elf4","elf5");
 
   function preload () {
     scene.load.atlasJSONHash("elf", "/assets/sprites/elf_walk.png", "/assets/sprites/elf_walk.json");
+    scene.load.atlasJSONHash("elf2", "/assets/sprites/elf_test.png", "/assets/sprites/elf_walk.json");
+    scene.load.atlasJSONHash("elf3", "/assets/sprites/elf_test.png", "/assets/sprites/elf_walk.json");
+    scene.load.atlasJSONHash("elf4", "/assets/sprites/elf_test.png", "/assets/sprites/elf_walk.json");
+    scene.load.atlasJSONHash("elf5", "/assets/sprites/elf_walk.png", "/assets/sprites/elf_walk.json");
 
     scene.load.tilemap("map", "assets/tiles/tilemap.csv", null, Phaser.Tilemap.CSV);
     scene.load.image("wood", "assets/tiles/tilemap-wood.png");
@@ -36,7 +41,7 @@ window.onload = function() {
     elves.physicsBodyType = Phaser.Physics.ARCADE;
     
     for (var y = 0; y < 4; y++){
-      elf = elves.create(0, yLocation[Math.floor(Math.random()*yLocation.length)], "elf");
+      elf = elves.create(0, yLocation[Math.floor(Math.random()*yLocation.length)], spriteImage[Math.floor(Math.random()*spriteImage.length)]);
       elf.anchor.set(0.5,0.5);
       elf.animations.add("run");
       elf.animations.play("run", 12, true);
@@ -45,10 +50,11 @@ window.onload = function() {
       elf.events.onOutOfBounds.add(elfOut, this);
       elf.body.velocity.x = Math.floor((Math.random() * 100) + 50);
     }
-
   }
   
   function elfOut(elf) {
+    elf.key == "elf1";
+    console.log(elf.key);
     elf.reset(elf.x, 0);
     elf.reset(elf.y, yLocation[Math.floor(Math.random()*yLocation.length)]);
     elf.body.velocity.x = Math.floor((Math.random() * 100) + 50);
