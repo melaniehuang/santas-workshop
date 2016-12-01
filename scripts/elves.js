@@ -13,7 +13,7 @@ window.onload = function() {
   var layer;
   
   var yLocation = Array(120, 442, 760);
-  var spriteImage = Array("elf", "elf2","elf3","elf4","elf5");
+  var spriteImages = Array("elf", "elf2","elf3","elf4","elf5");
 
   function preload () {
     scene.load.atlasJSONHash("elf", "/assets/sprites/elf_walk.png", "/assets/sprites/elf_walk.json");
@@ -41,7 +41,7 @@ window.onload = function() {
     elves.physicsBodyType = Phaser.Physics.ARCADE;
     
     for (var y = 0; y < 4; y++){
-      elf = elves.create(0, yLocation[Math.floor(Math.random()*yLocation.length)], spriteImage[Math.floor(Math.random()*spriteImage.length)]);
+      elf = elves.create(0, yLocation[Math.floor(Math.random()*yLocation.length)], spriteImages[Math.floor(Math.random()*spriteImages.length)]);
       elf.anchor.set(0.5,0.5);
       elf.animations.add("run");
       elf.animations.play("run", 12, true);
@@ -53,14 +53,12 @@ window.onload = function() {
   }
   
   function elfOut(elf) {
-    elf.key == "elf1";
-    console.log(elf.key);
     elf.reset(elf.x, 0);
     elf.reset(elf.y, yLocation[Math.floor(Math.random()*yLocation.length)]);
     elf.body.velocity.x = Math.floor((Math.random() * 100) + 50);
   }
 
-  function update () {
+  function update() {
   }
   
   function render () {
