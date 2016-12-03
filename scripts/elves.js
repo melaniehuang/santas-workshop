@@ -12,16 +12,14 @@ window.onload = function() {
   var map;
   var layer;
   
-  var yLocation = Array(120, 442, 760);
-  var spriteImages = Array("elf", "elf2","elf3","elf4","elf5");
-  var elfImage;
+  var yLocation = Array(40, 280, 520, 760);
+  var spriteImages = Array("elf", "elf2", "elf3", "elf4");
 
   function preload () {
     scene.load.atlasJSONHash("elf", "/assets/sprites/elf_walk.png", "/assets/sprites/elf_walk.json");
-    scene.load.atlasJSONHash("elf2", "/assets/sprites/elf_test.png", "/assets/sprites/elf_walk.json");
-    scene.load.atlasJSONHash("elf3", "/assets/sprites/elf_walk.png", "/assets/sprites/elf_walk.json");
-    scene.load.atlasJSONHash("elf4", "/assets/sprites/elf_test.png", "/assets/sprites/elf_walk.json");
-    scene.load.atlasJSONHash("elf5", "/assets/sprites/elf_walk.png", "/assets/sprites/elf_walk.json");
+    scene.load.atlasJSONHash("elf2", "/assets/sprites/elf_walk2.png", "/assets/sprites/elf_walk.json");
+    scene.load.atlasJSONHash("elf3", "/assets/sprites/elf_carry.png", "/assets/sprites/elf_walk.json");
+    scene.load.atlasJSONHash("elf4", "/assets/sprites/elf_overhead.png", "/assets/sprites/elf_walk.json");
 
     scene.load.tilemap("map", "assets/tiles/tilemap.csv", null, Phaser.Tilemap.CSV);
     scene.load.image("wood", "assets/tiles/tilemap-wood.png");
@@ -45,7 +43,7 @@ window.onload = function() {
     for (var y = 0; y < 10; y++){
       elf = elves.create(0, yLocation[Math.floor(Math.random()*yLocation.length)], spriteImages[Math.floor(Math.random()*spriteImages.length)]);
       elf.anchor.set(0.5,0.5);
-      elf.animations.add("run");
+      elf.animations.add("run")
       elf.animations.play("run", 12, true);
 
       elf.checkWorldBounds = true;
