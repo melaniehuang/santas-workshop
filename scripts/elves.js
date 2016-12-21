@@ -9,6 +9,7 @@ window.onload = function() {
   console.log(todaysDate);
 
   //countdown til xmas 25 11
+  //work out timezones
   var xmasDay = ["25", "11"];
   console.log(xmasDay); 
 
