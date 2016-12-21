@@ -1,4 +1,17 @@
 window.onload = function() {
+  var date = new Date();
+  var day = date.getDate();
+  var month = date.getMonth();
+
+  var todaysDate = [];
+  todaysDate.push(day);
+  todaysDate.push(month);
+  console.log(todaysDate);
+
+  //countdown til xmas 25 11
+  var xmasDay = ["25", "11"];
+  console.log(xmasDay); 
+
   var scene = new Phaser.Game(500, 900, Phaser.AUTO, "phaser-example", { 
     preload: preload, 
     create: create,
