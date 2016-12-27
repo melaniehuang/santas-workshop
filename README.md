@@ -1,9 +1,11 @@
 # santas-workshop
 Projection for our Christmas lights display
 
-- Game engine generates a random sprite animation and positions at 4 variable heights
-- Elfs hop across the screen :)
-- Used phaser.js and a shower screen/projector combo.
+Includes:
+- Random elf animations hopping across the screen
+- Countdown to Christmas of current year
+- Created with phaser.js and Pixen 
+- Projected at front of house on a shower screen
 
 ![Elf Workshop](http://i.imgur.com/33QUKx3.png)
 
