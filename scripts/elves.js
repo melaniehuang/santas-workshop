@@ -1,4 +1,4 @@
-window.onload = function() {
+var init = function () {
   var scene = new Phaser.Game(500, 900, Phaser.AUTO, "phaser-example", { 
     preload: preload, 
     create: create
@@ -8,6 +8,12 @@ window.onload = function() {
   var elves;
   var map;
   var layer;
+  
+  //change the year each year
+  var today = new Date();
+  var year = today.getFullYear();
+  var dateXmas = new Date(year, 11, 25);
+
   var signText;
   
   var yLocation = Array(118, 280, 440, 600, 760);
@@ -35,24 +41,11 @@ window.onload = function() {
     
     layer = map.createLayer(0);
     layer.resizeWorld();
-    var dateToday = new Date();
-    var dateXmas = new Date(2016, 11, 27);
-
-    var countdown = getDays(dateXmas, dateToday);
-
-    var style = { fontSize: "20px", fill: "#473a1f", boundsAlignH: "center" };
-    if (countdown == 1){
-      signText = scene.add.text(0, 0, countdown + " SLEEP 'TIL SANTA!", style);
-    } else if (countdown == 0 || countdown == -1){
-      signText = scene.add.text(0, 0, "MERRY MERRY XMAS!", style);
-    } else {
-      signText = scene.add.text(0,0, countdown + " DAYS TO GO", style);
-    }
-    signText.setTextBounds(scene.world.centerX-126, 96, 320, 30);
-
+    
+    printSign();
+    
     elves = scene.add.group();
     elves.enableBody = true;
-    elves.physicsBodyType = Phaser.Physics.ARCADE;
     
     for (var y = 0; y < 8; y++){
       elf = elves.create(0, yLocation[Math.floor(Math.random()*yLocation.length)], spriteImages[Math.floor(Math.random()*spriteImages.length)]);
@@ -76,12 +69,44 @@ window.onload = function() {
   
   function getDays(xmas, date){
     if (xmas > date){
-      console.log("before or on");
-      console.log(Math.ceil((xmas - date) / 86400000));
       return Math.ceil((xmas - date) / 86400000)
     } else {
-      console.log("after");
       return -1;;    
     }   
   }
+
+  function printSign(){
+    var dateToday = new Date();
+    var countdown = getDays(dateXmas, dateToday);
+    var style = { fontSize: "14px", fill: "#473a1f", boundsAlignH: "center" };
+    if (countdown == 1){
+      signText = scene.add.text(0, 0, countdown + " MORE SLEEP!", style);
+    } else if (countdown == 0 || countdown == -1){
+      signText = scene.add.text(0, 0, "MERRY CHRISTMAS!", style);
+    } else {
+      signText = scene.add.text(0,0, countdown + " DAYS TO GO", style);
+    }
+    signText.setTextBounds(scene.world.centerX-126, 102, 320, 30);
+    signText.font = "Press Start 2P";
+  }
+};
+
+var wfconfig = {
+  active: function() { 
+    console.log("font loaded");
+    init();
+  },
+  
+  inactive: function() {
+      console.log("fonts could not be loaded!");
+      init();
+  },
+
+  google: {
+    families: ["Press Start 2P"]
+  }
+};
+
+window.onload = function() {
+  WebFont.load(wfconfig);
 };
