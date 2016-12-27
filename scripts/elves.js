@@ -1,30 +1,14 @@
 window.onload = function() {
-  var date = new Date();
-  var day = date.getDate();
-  var month = date.getMonth();
-
-  var todaysDate = [];
-  todaysDate.push(day);
-  todaysDate.push(month);
-  console.log(todaysDate);
-
-  //countdown til xmas 25 11
-  //work out timezones
-  var xmasDay = ["25", "11"];
-  console.log(xmasDay); 
-
   var scene = new Phaser.Game(500, 900, Phaser.AUTO, "phaser-example", { 
     preload: preload, 
-    create: create,
-    update: update, 
-    render: render
+    create: create
   });
 
   var elf;
   var elves;
-
   var map;
   var layer;
+  var signText;
   
   var yLocation = Array(118, 280, 440, 600, 760);
   var spriteImages = Array("elf", "elf2", "elf3", "elf4", "elf5", "elf6", "elf7");
@@ -43,7 +27,6 @@ window.onload = function() {
   }
 
   function create () {
-
     scene.stage.backgroundColor = 0x422B1D;
     scene.physics.setBoundsToWorld();
 
@@ -52,6 +35,20 @@ window.onload = function() {
     
     layer = map.createLayer(0);
     layer.resizeWorld();
+    var dateToday = new Date();
+    var dateXmas = new Date(2016, 11, 27);
+
+    var countdown = getDays(dateXmas, dateToday);
+
+    var style = { fontSize: "20px", fill: "#473a1f", boundsAlignH: "center" };
+    if (countdown == 1){
+      signText = scene.add.text(0, 0, countdown + " SLEEP 'TIL SANTA!", style);
+    } else if (countdown == 0 || countdown == -1){
+      signText = scene.add.text(0, 0, "MERRY MERRY XMAS!", style);
+    } else {
+      signText = scene.add.text(0,0, countdown + " DAYS TO GO", style);
+    }
+    signText.setTextBounds(scene.world.centerX-126, 96, 320, 30);
 
     elves = scene.add.group();
     elves.enableBody = true;
@@ -76,12 +73,15 @@ window.onload = function() {
     elf.loadTexture(elf.key,0,false);
     elf.body.velocity.x = Math.floor((Math.random() * 100) + 50);
   }
-
-  function update() {
-  }
   
-  function render () {
+  function getDays(xmas, date){
+    if (xmas > date){
+      console.log("before or on");
+      console.log(Math.ceil((xmas - date) / 86400000));
+      return Math.ceil((xmas - date) / 86400000)
+    } else {
+      console.log("after");
+      return -1;;    
+    }   
   }
 };
-
-// elf.scale.x = -1;
