@@ -9,17 +9,10 @@ var init = function () {
   var map;
   var layer;
   
-  //change the year each year
-  var today = new Date();
-  var year = today.getFullYear();
-  var dateXmas = new Date(year, 11, 25);
-
-  var signText;
-  
   var yLocation = Array(118, 280, 440, 600, 760);
   var spriteImages = Array("elf", "elf2", "elf3", "elf4", "elf5", "elf6", "elf7");
 
-  function preload () {
+  function preload() {
     scene.load.atlasJSONHash("elf", "/assets/sprites/elf-walk.png", "/assets/sprites/elf_walk.json");
     scene.load.atlasJSONHash("elf2", "/assets/sprites/elf-walk-red.png", "/assets/sprites/elf_walk.json");
     scene.load.atlasJSONHash("elf3", "/assets/sprites/elf-carry.png", "/assets/sprites/elf_walk.json");
@@ -32,7 +25,7 @@ var init = function () {
     scene.load.image("wood", "assets/tiles/tilemap-wood.png");
   }
 
-  function create () {
+  function create() {
     scene.stage.backgroundColor = 0x422B1D;
     scene.physics.setBoundsToWorld();
 
@@ -77,36 +70,40 @@ var init = function () {
 
   function printSign(){
     var dateToday = new Date();
+    var year = dateToday.getFullYear();
+    var dateXmas = new Date(year, 11, 25);
     var countdown = getDays(dateXmas, dateToday);
+
     var style = { fontSize: "14px", fill: "#473a1f", boundsAlignH: "center" };
     if (countdown == 1){
-      signText = scene.add.text(0, 0, countdown + " MORE SLEEP!", style);
+      var signText = scene.add.text(0, 0, countdown + " MORE SLEEP!", style);
     } else if (countdown == 0 || countdown == -1){
-      signText = scene.add.text(0, 0, "MERRY CHRISTMAS!", style);
+      var signText = scene.add.text(0, 0, "MERRY CHRISTMAS!", style);
     } else {
-      signText = scene.add.text(0,0, countdown + " DAYS TO GO", style);
+      var signText = scene.add.text(0,0, countdown + " DAYS TO GO", style);
     }
+
     signText.setTextBounds(scene.world.centerX-126, 102, 320, 30);
     signText.font = "Press Start 2P";
   }
 };
 
-var wfconfig = {
-  active: function() { 
-    console.log("font loaded");
-    init();
-  },
-  
-  inactive: function() {
-      console.log("fonts could not be loaded!");
+window.onload = function() { 
+  var wfconfig = {
+    active: function() { 
+      console.log("font loaded");
       init();
-  },
+    },
+    
+    inactive: function() {
+        console.log("fonts could not be loaded!");
+        init();
+    },
 
-  google: {
-    families: ["Press Start 2P"]
-  }
-};
+    google: {
+      families: ["Press Start 2P"]
+    }
+  };
 
-window.onload = function() {
   WebFont.load(wfconfig);
 };
